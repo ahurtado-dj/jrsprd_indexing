@@ -1,0 +1,30 @@
+<dataConfig>
+	<dataSource type="MongoDataSource" name="mymongodb" host="127.0.0.1" port="3001" database="meteor"  /> 
+	<document name="data">
+	<!-- if query="" then it imports everything -->
+    <entity name="fichas"
+              processor="MongoEntityProcessor"
+              query=""
+              collection="fichas"   
+              datasource="mymongodb"
+              transformer="MongoMapperTransformer">     
+			  
+              <field column="id"   name="id"   mongoField="_id" />               
+              <field column="title" name="procesocaso_rj_nro" mongoField="procesocaso_rj_nro"/>                            
+              <field column="jurisdiccion" name="jurisdiccion" mongoField="jurisdiccion"/>                            
+              <field column="fecha_providencia" name="fecha_providencia" mongoField="fecha_providencia"/>                            
+              <field column="magistrado_ponente" name="magistrado_ponente" mongoField="magistrado_ponente"/>                            
+              <field column="sentido_fallo" name="sentido_fallo" mongoField="sentido_fallo"/>                            
+              <field column="hechos_relevantes" name="hechos_relevantes" mongoField="hechos_relevantes"/>                            
+
+              <entity name="ciudad"
+                    processor="MongoEntityProcessor"
+                    query="{'_id':'${fichas.id}'}"
+                    collection="ciudad"   
+                    datasource="mymongodb"
+                    transformer="MongoMapperTransformer">                                             
+                    <field column="nombre" name="ciudad" mongoField="ciudad_ref"/>                            
+              </entity>
+       </entity> 
+   </document> 
+</dataConfig>
